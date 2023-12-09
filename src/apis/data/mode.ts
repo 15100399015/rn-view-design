@@ -37,16 +37,16 @@ export const pageData = {
     id: 2,
   },
   size: {
-    width: "720",
-    height: "1280",
+    width: 720,
+    height: 1280,
   },
   views: [
     {
       id: 5,
       title: "baseView",
       position: {
-        top: "220",
-        left: "88",
+        top: "0", 
+        left: "0",
       },
       size: {
         width: "160",
@@ -59,8 +59,8 @@ export const pageData = {
       id: 6,
       title: "textView",
       position: {
-        top: "420",
-        left: "88",
+        top: "550",
+        left: "0",
       },
       size: {
         width: "160",

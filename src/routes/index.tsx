@@ -19,6 +19,7 @@ import React from "react";
 import { RouteObject } from "react-router-dom";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Dashboard from "@/pages/Designer/Designer";
+import TestPage from "@/pages/TestPage/TestPage";
 const routes: RouteObject[] = [
   {
     path: "/",
@@ -27,6 +28,10 @@ const routes: RouteObject[] = [
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/test",
+        element: <TestPage />,
       },
     ],
   },

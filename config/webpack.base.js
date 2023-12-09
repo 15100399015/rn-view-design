@@ -37,7 +37,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.tsx', '.ts'],
     alias: {
-      '@': appSrcDir
+      '@': appSrcDir,
+      "react-native": "react-native-web"
     },
     // [issue fix] react-markdown, react-syntax-highlighter common deps property-information with different version
     // if set modules, webpack will search property-information in root node_modules, this may cause error

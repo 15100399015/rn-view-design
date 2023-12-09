@@ -5,7 +5,7 @@ import Selecto from "react-selecto";
 import { message } from "antd";
 import { IObject } from "@daybrush/utils";
 import { isNil } from "lodash-es";
-import SolidViewFactory from "@/views/SolidViewFactory";
+import SolidViewFactory from "@/drawViews/SolidViewFactory";
 import {
   OnDrawEventData,
   OnSelectPageEventData,
@@ -137,7 +137,6 @@ export default class SolidEditor extends React.PureComponent<
           return;
         }
         const SolidViewComponent = builder.getComponentType();
-        console.log(">>>",builder,builder.getComponentType())
         const { style, ...vm } = view;
         const _style: React.CSSProperties = {
           ...style,
@@ -146,10 +145,9 @@ export default class SolidEditor extends React.PureComponent<
           // top: `${vm.position.top}px`,
           // left: `${vm.position.left}px`,
           position: "absolute",
-          transform: `translate(${vm.position.top}px, ${vm.position.left}px)`,
+          transform: `translate(${vm.position.left}px, ${vm.position.top}px)`,
         };
         const localVM = builder.createModel();
-          vm.data = localVM.data;
         this.appendJSXsOnly([
           {
             id: view.id,
