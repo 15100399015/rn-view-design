@@ -17,8 +17,8 @@
 
 import { isNil, set, unset, forEach, isEmpty, remove, find } from "lodash-es";
 import { SolidModelDataType, SolidViewDataType } from "@/DesignerView/types";
-import { eventbus } from "@/DesignerScene/utils";
-import { OnSelectViewEventData } from "@/DesignerScene/types/eventbus";
+import { eventbus } from "@/DesignerView/utils";
+import { OnSelectViewEventData } from "@/DesignerView/types/eventbus";
 
 class ModelManager {
   private model?: SolidModelDataType;
@@ -26,8 +26,6 @@ class ModelManager {
   private currentView?: SolidViewDataType;
 
   private viewMap: Map<string, SolidViewDataType> = new Map();
-
-  private views: SolidViewDataType[] = [];
 
   constructor() {
     this.handleSelectView = this.handleSelectView.bind(this);
@@ -53,7 +51,6 @@ class ModelManager {
   private __clear() {
     this.currentView = undefined;
     this.viewMap.clear();
-    this.views = [];
   }
 
   private __config(model: SolidModelDataType) {
@@ -65,19 +62,24 @@ class ModelManager {
       return;
     }
 
-    const recursion = (childNodes: SolidViewDataType[]) => {
+    const recursion = (childNodes: SolidViewDataType[], parentId?: string) => {
       for (let i = 0; i < childNodes.length; i++) {
         const view = childNodes[i];
+        if (parentId) view.meta.parentId = parentId;
         this.viewMap.set(view.meta.id, view);
-        this.views.push(view);
         if (view.childNodes?.length) {
-          recursion(view.childNodes);
+          recursion(view.childNodes, view.meta.id);
         }
       }
     };
-    recursion([view]);
+    recursion([view], "root");
   }
 
+  public updateView() {
+    eventbus.emit("onUpdateView", {
+      model: this.getModel() as SolidModelDataType,
+    });
+  }
   public getModel(): SolidModelDataType | undefined {
     return this.model;
   }
@@ -86,9 +88,6 @@ class ModelManager {
   }
   public getView(id: string): SolidViewDataType | undefined {
     return this.viewMap.get(id);
-  }
-  public getViews(): SolidViewDataType[] {
-    return this.views || [];
   }
 
   public addView(parentView: SolidViewDataType, view: SolidViewDataType): void {
@@ -108,30 +107,22 @@ class ModelManager {
   }
 
   public removeView(id: string): void {
-    // if (isNil(this.currentPage)) {
-    //   return;
-    // }
-    // const index = this.currentPage.views.findIndex((item) => item.id === id);
-    // if (index > -1) {
-    //   this.currentPage.views.splice(index, 1);
-    // }
-    // this.viewMap.delete(id);
-    // this.views = this.views.filter((item) => item.id !== id);
+    const parentId = this.viewMap.get(id)?.meta.parentId;
+    if (!parentId) return;
+    const parent = this.viewMap.get(parentId);
+    if (!parent) return;
+    for (let i = 0; i < parent.childNodes!.length; i++) {
+      const view = parent.childNodes![i];
+      if (view.meta.id === id) {
+        this.viewMap.delete(view.meta.id);
+        parent.childNodes!.splice(i, 1);
+        this.updateView();
+        return;
+      }
+    }
   }
 
   public getPrepareSavingModel(): SolidModelDataType | undefined {
-    // if (isNil(this.model)) {
-    //   return undefined;
-    // }
-    // if (!isEmpty(this.model.scenas)) {
-    //   forEach(this.model.scenas, (item) => {
-    //     if (!isEmpty(item.pages)) {
-    //       forEach(item.pages, (page) => unset(page, "selected"));
-    //     }
-    //     unset(item, "selected");
-    //   });
-    // }
-    // return this.model;
     return undefined;
   }
 }

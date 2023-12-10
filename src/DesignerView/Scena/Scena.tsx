@@ -17,13 +17,11 @@
 
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Slider } from "antd";
-import { isNil } from "lodash-es";
 import Designer from "../Designer/Designer";
 import {
-  OnSelectPageEventData,
   OnZoomEventData,
   onPageSizeValueChangeEventData,
-} from "@/DesignerScene/types/eventbus";
+} from "@/DesignerView/types/eventbus";
 import { eventbus } from "@/DesignerView/utils";
 
 function Scena() {
@@ -56,16 +54,6 @@ function Scena() {
       eventbus.off("onPageHeightChange", handleHeightChange);
     };
   }, []);
-
-  function handleSelectPage(evt: OnSelectPageEventData) {
-    const { page } = evt;
-    if (isNil(page)) {
-      return;
-    }
-
-    setWidth(page.size.width);
-    setHeight(page.size.height);
-  }
 
   function handleWidthChange(evt: onPageSizeValueChangeEventData) {
     setWidth(evt.value);

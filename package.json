@@ -1,5 +1,5 @@
 {
-  "name": "实验项目",
+  "name": "test-project",
   "version": "0.2.0",
   "main": "src/index.js",
   "license": "Apache-2.0",
@@ -76,6 +76,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
+    "@ant-design/pro-components": "^2.6.43",
     "@cfcs/core": "^0.1.0",
     "@daybrush/utils": "^1.13.0",
     "@icon-park/react": "^1.4.2",

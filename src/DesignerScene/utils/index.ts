@@ -17,7 +17,7 @@
 
 import mitt from "mitt";
 import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/DesignerScene/types/eventbus";
+import { EventBusType } from "@/DesignerView/types/eventbus";
 import ModelManager from "./ModelManager";
 
 const ids: IObject<string> = {};

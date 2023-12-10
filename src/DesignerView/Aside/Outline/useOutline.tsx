@@ -23,9 +23,10 @@ import {
   OnSelectViewEventData,
   OnDrawCompleteEventData,
   OnRemoveViewCompleteEventData,
-} from "@/DesignerScene/types";
+} from "@/DesignerView/types";
 import { SolidViewDataType } from "@/DesignerView/types";
 import { Tree, TreeNodeProps, message } from "antd";
+import { NodeType } from "@/utils/renderRnView";
 
 type ViewStateDataType = {
   selected: boolean;
@@ -133,8 +134,18 @@ function useOutline() {
     treeNodeProps: TreeNodeProps = {}
   ) {
     return views.map((view) => {
+      if (view.elementType === NodeType.Interp) {
+        return null;
+      }
+      if (view.elementType === NodeType.Text) {
+        return null;
+      }
+      let title = view.name;
+      if (view.isDocument) {
+        title = "Document";
+      }
       return (
-        <Tree.TreeNode key={view.meta.id} expanded title={view.meta.title}>
+        <Tree.TreeNode key={view.meta.id} expanded title={title}>
           {view.childNodes && loopGenTreeNode(view.childNodes, treeNodeProps)}
         </Tree.TreeNode>
       );

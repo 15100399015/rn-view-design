@@ -47,6 +47,7 @@ export interface SolidModelDataType {
 
 export interface SolidViewDataType {
   meta: {
+    parentId?: string;
     id: string,
     title: string,
   },

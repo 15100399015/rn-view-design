@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import InfiniteViewer from "react-infinite-viewer";
 import Guides from "@scena/react-guides";
 import Selecto from "react-selecto";
-import { OnSelectViewEventData } from "@/DesignerScene/types/eventbus";
+import { OnSelectViewEventData } from "@/DesignerView/types/eventbus";
 import { eventbus, mm } from "@/DesignerView/utils";
 import SolidViewport from "./DesignerViewport";
 import MoveableManager from "./utils/MoveableManager";
@@ -12,9 +12,11 @@ import { SOLIDUI_ELEMENT_ID } from "./utils/const";
 import { prefix } from "./utils";
 
 import { SolidEditorContext } from "./DesignerContext";
-import { ElementInfo } from "./utils/types";
 import "./style/index.less";
-import { OnModelLoadEventData } from "@/types";
+import {
+  OnModelLoadEventData,
+  OnUpdateViewEventData,
+} from "@/DesignerView/types";
 import { generatorElementTreeByXmlAst } from "@/utils/renderRnView";
 
 export interface SolidEditorState {
@@ -70,11 +72,13 @@ export default class SolidEditor extends React.PureComponent<
   public moveableManager = React.createRef<MoveableManager>();
 
   componentDidMount(): void {
+    eventbus.on("onUpdateView", this.handleUpdateView);
     eventbus.on("onModelLoad", this.handleModelLoad);
     eventbus.on("onSelectViewInViewList", this.handleSelectViewinViewList);
   }
 
   componentWillUnmount(): void {
+    eventbus.off("onUpdateView", this.handleUpdateView);
     eventbus.off("onModelLoad", this.handleModelLoad);
     eventbus.off("onSelectViewInViewList", this.handleSelectViewinViewList);
   }
@@ -86,6 +90,20 @@ export default class SolidEditor extends React.PureComponent<
     }
   };
 
+  public handleUpdateView = (event: OnUpdateViewEventData) => {
+    const model = mm.getModel();
+    if (model?.view) {
+      const JsxComponent = generatorElementTreeByXmlAst(
+        model.view as unknown as any
+      );
+      this.getViewport().updateRootView({
+        id: "view.meta.id",
+        jsx: <JsxComponent />,
+        name: "根标签",
+      });
+    }
+  };
+
   public handleModelLoad = (event: OnModelLoadEventData) => {
     const model = mm.getModel();
     this.clear().then(() => {
@@ -93,7 +111,7 @@ export default class SolidEditor extends React.PureComponent<
         const JsxComponent = generatorElementTreeByXmlAst(
           model.view as unknown as any
         );
-        this.setViewPortRootView({
+        this.getViewport().setRootView({
           id: "view.meta.id",
           jsx: <JsxComponent />,
           name: "根标签",
@@ -119,10 +137,6 @@ export default class SolidEditor extends React.PureComponent<
     if (target) {
       this.setSelectedTargets([target]);
     }
-  }
-
-  public setViewPortRootView(info: ElementInfo): Promise<any> {
-    return this.getViewport().setRootView(info);
   }
 
   public clear() {
@@ -154,8 +168,12 @@ export default class SolidEditor extends React.PureComponent<
     }).then(() => {
       this.selecto.current!.setSelectedTargets(targets);
       this.moveableData.setSelectedTargets(targets);
-      const id = targets[0].getAttribute(SOLIDUI_ELEMENT_ID) as string;
-      eventbus.emit("onSelectViewInViewport", { id });
+      if (targets[0]) {
+        const id = targets[0].getAttribute(SOLIDUI_ELEMENT_ID) as string;
+        if (id) {
+          eventbus.emit("onSelectViewInViewport", { id });
+        }
+      }
       return targets;
     });
   }

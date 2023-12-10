@@ -16,15 +16,42 @@
  */
 
 import React from "react";
-import ViewPropertiesPanel from "./ViewPropertiesPanel/ViewPropertiesPanel";
+import StylePropertiesPanel from "./AttributePropertiesPanel";
+import DataPropertiesPanel from "./OptionPropertiesPanel";
 
-import "./configurations.less";
+import usePropertiesTabs from "./usePropertiesTabs";
 
 function Properties() {
+  const { currentTabKey, renderTabs } = usePropertiesTabs({
+    tabs: [
+      {
+        key: "Style",
+        tab: "Style",
+      },
+      {
+        key: "Data",
+        tab: "Data",
+      },
+    ],
+  });
+
+  function renderPanel() {
+    if (currentTabKey === "Style") {
+      return <StylePropertiesPanel />;
+    }
+    if (currentTabKey === "Data") {
+      return <DataPropertiesPanel />;
+    }
+    return undefined;
+  }
+
   return (
     <section id="section-properties" className="aside-east">
       <div className="aside-east__container">
-        <ViewPropertiesPanel />
+        <header className="conf-header">{renderTabs()}</header>
+        <main className="conf-main">
+          <div className="aside-east__container">{renderPanel()}</div>
+        </main>
       </div>
     </section>
   );

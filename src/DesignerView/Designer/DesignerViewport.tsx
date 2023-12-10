@@ -6,8 +6,8 @@ import {
   ElementInfo,
   EditorInterface,
 } from "./utils/types";
-
 import { updateElements } from "./utils";
+import { message } from "antd";
 
 interface SolidViewport extends EditorInterface {}
 
@@ -68,10 +68,18 @@ class SolidViewport extends React.PureComponent<{
       });
     });
   }
+  public updateRootView(info: ElementInfo) {
+    this.viewport = info;
+    this.forceUpdate(() => {
+      updateElements(info, (id, element) => {
+        this.setInfo(id, { el: element });
+      });
+    });
+  }
 
   public clear() {
     this.ids = {};
-    this.viewport = null
+    this.viewport = null;
   }
 
   public render() {

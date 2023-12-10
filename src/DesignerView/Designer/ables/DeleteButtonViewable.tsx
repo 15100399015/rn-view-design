@@ -37,35 +37,35 @@ export const DelteButtonViewable = {
 		const DeleteButton = moveable.useCSS(
 			"div",
 			`
-        {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            will-change: transform;
-            transform-origin: 0px 0px;
-            width: 24px;
-            height: 24px;
-            background: #4af;
-            background: var(--moveable-color);
-            opacity: 0.9;
-            border-radius: 4px;
-        }
-        :host:before, :host:after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            width: 16px;
-            height: 2px;
-            background: #fff;
-            border-radius: 1px;
-            cursor: pointer;
-        }
-        :host:after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-        `,
+			{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				will-change: transform;
+				transform-origin: 0px 0px;
+				width: 24px;
+				height: 24px;
+				background: #4af;
+				background: var(--moveable-color);
+				opacity: 0.9;
+				border-radius: 4px;
+			}
+			:host:before, :host:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%) rotate(45deg);
+				width: 16px;
+				height: 2px;
+				background: #fff;
+				border-radius: 1px;
+				cursor: pointer;
+			}
+			:host:after {
+				transform: translate(-50%, -50%) rotate(-45deg);
+			}
+			`,
 		);
 		return (
 			<SolidEditorContext.Consumer key="delete-button-viewer">
@@ -74,9 +74,7 @@ export const DelteButtonViewable = {
 						className="moveable-delete-button"
 						onClick={() => {
 							if (editor) {
-								// let ids: string[] = [];
 								const targets = editor.getSelectedTargets();
-								editor.removeElements(targets);
 								targets.forEach((target) => {
 									const id = target.getAttribute(SOLIDUI_ELEMENT_ID) as string;
 									mm.removeView(id);
