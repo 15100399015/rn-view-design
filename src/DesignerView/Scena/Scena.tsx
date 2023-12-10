@@ -23,8 +23,8 @@ import {
   OnSelectPageEventData,
   OnZoomEventData,
   onPageSizeValueChangeEventData,
-} from "@/types/eventbus";
-import { eventbus } from "@/utils";
+} from "@/DesignerScene/types/eventbus";
+import { eventbus } from "@/DesignerView/utils";
 
 function Scena() {
   const [width, setWidth] = useState(720);
@@ -48,14 +48,12 @@ function Scena() {
 
   useEffect(() => {
     eventbus.on("onZoom", onZoom);
-    eventbus.on("onSelectPage", handleSelectPage);
     eventbus.on("onPageWidthChange", handleWidthChange);
     eventbus.on("onPageHeightChange", handleHeightChange);
     return () => {
       eventbus.off("onZoom", onZoom);
       eventbus.off("onPageWidthChange", handleWidthChange);
       eventbus.off("onPageHeightChange", handleHeightChange);
-      eventbus.off("onSelectPage", handleSelectPage);
     };
   }, []);
 

@@ -19,7 +19,7 @@ import React from "react";
 
 import { IObject, isString, isArray, isNumber } from "@daybrush/utils";
 
-import { eventbus } from "@/utils";
+import { eventbus } from "@/DesignerScene/utils";
 
 import { isNil } from "lodash-es";
 import { connectEditorContext } from "./DesignerContext";
@@ -283,6 +283,8 @@ class SolidViewport extends React.PureComponent<{
 				// el: ,
 				id,
 			};
+			console.log(id,elementInfo.el);
+
 			this.setInfo(id, elementInfo);
 			return elementInfo;
 		});

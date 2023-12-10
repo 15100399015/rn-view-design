@@ -1,8 +1,8 @@
 import * as React from "react";
 import Moveable from "react-moveable";
 import { isNaN } from "lodash-es";
-import { OnReiszeGroupEventData } from "@/types/eventbus";
-import { eventbus, mm } from "@/utils";
+import { OnReiszeGroupEventData } from "@/DesignerScene/types/eventbus";
+import { eventbus, mm } from "@/DesignerScene/utils";
 import { getContentElement } from "./index";
 import { EditorInterface } from "./types";
 import { connectEditorContext } from "../DesignerContext";

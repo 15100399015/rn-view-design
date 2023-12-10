@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SolidViewDataType, SolidViewType } from "@/types/solid";
-import { genId } from "@/utils";
+import { SolidViewDataType, SolidViewType } from "@/DesignerScene/types/solid";
+import { genId } from "@/DesignerScene/utils";
 import SolidViewBuilder, { ViewCategory } from "../../ViewBuilder";
 import Base64ImageSolidView from "./ContainerView";
 

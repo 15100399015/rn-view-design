@@ -22,9 +22,9 @@ import {
   EventBusType,
   OnReiszeGroupEventData,
   OnUpdateViewPropertyValueEventData,
-} from "@/types/eventbus";
+} from "@/DesignerScene/types/eventbus";
 
-import { SolidViewDataType } from "@/types/solid";
+import { SolidViewDataType } from "@/DesignerScene/types/solid";
 
 export interface SolidViewProps {
   id: string;

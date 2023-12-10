@@ -23,6 +23,10 @@ export enum NodeType {
 }
 
 export class Node {
+  meta?: {
+    id: string;
+    title: string;
+  };
   readonly childNodes: (Text | Element | Interp)[] = [];
 }
 
@@ -135,7 +139,7 @@ function mapElement(
             key: `el-${elementName}-${i}`,
             // @ts-ignore
             dataSet: {
-              index: `${index}-${i}`,
+              "element-id": `${elementOption.meta!.id}`,
             },
             ...disposeAttributes(elementAttributes),
             ...disposeBind(elementBind, props),

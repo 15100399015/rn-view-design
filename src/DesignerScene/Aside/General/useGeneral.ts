@@ -20,14 +20,14 @@ import { message } from "antd";
 import { useParams } from "react-router-dom";
 import { isNil } from "lodash-es";
 import { useUpdate } from "react-use";
-import { eventbus, mm } from "@/utils";
-import { SolidScenaDataType, SolidPageDataType } from "@/types/solid";
+import { eventbus, mm } from "@/DesignerScene/utils";
+import { SolidScenaDataType, SolidPageDataType } from "@/DesignerScene/types/solid";
 import Apis from "@/apis";
 import {
   CreatedSceneResponseDataType,
   CreatedPageResponseDataType,
 } from "@/apis/types/resp";
-import { ApiResult } from "@/types";
+import { ApiResult } from "@/DesignerScene/types";
 import { pageData } from "@/apis/data/mode";
 
 interface StatefulSolidSceneDataType extends SolidScenaDataType {

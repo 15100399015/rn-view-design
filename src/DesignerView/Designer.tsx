@@ -17,11 +17,11 @@
 
 import React from "react";
 import { useMemoizedFn } from "ahooks";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "./utils/index";
 import Aside from "./Aside/Aside";
 import Scena from "./Scena/Scena";
 import Properties from "./Properties/Properties";
-import { modelData } from "@/apis/data/mode";
+import { modelData } from "@/apis/data/views";
 import "@/assets/styles/designer.less";
 
 function Dashboard() {
@@ -35,7 +35,7 @@ function Dashboard() {
   }, [handleLoad]);
 
   return (
-    <div id="dashboard">
+    <div id="dashboard" className="dashboard-view">
       {/* 左侧边栏 */}
       <Aside />
       {/* 场景视图 */}

@@ -10,8 +10,8 @@ import {
   OnDrawEventData,
   OnSelectPageEventData,
   OnSelectViewEventData,
-} from "@/types/eventbus";
-import { eventbus, mm } from "@/utils";
+} from "@/DesignerScene/types/eventbus";
+import { eventbus, mm } from "../utils";
 import SolidViewport from "./DesignerViewport";
 import MoveableManager from "./utils/MoveableManager";
 import MoveableData from "./utils/MoveableData";

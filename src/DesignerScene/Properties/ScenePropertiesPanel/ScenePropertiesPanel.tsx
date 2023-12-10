@@ -22,7 +22,7 @@ import {
   InputNumber,
   InputText,
 } from "@/components";
-import { mm, eventbus } from "@/utils";
+import { mm, eventbus } from "@/DesignerScene/utils";
 
 export default function ScenePropertiesPanel() {
   const project = mm.getModel();

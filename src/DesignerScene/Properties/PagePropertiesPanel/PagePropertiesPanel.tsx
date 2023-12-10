@@ -18,9 +18,14 @@
 import React, { useState } from "react";
 import { isNil } from "lodash-es";
 import { PropertyElement, InputNumber } from "@/components";
-import { mm, eventbus } from "@/utils";
+import { mm, eventbus } from "@/DesignerScene/utils";
 export default function PagePropertiesPanel() {
-  const [size] = useState<{ width: number; height: number }>();
+  const page = mm.getCurrentPage();
+
+  const [size] = useState<{ width: number; height: number }>({
+    width: page?.size.width || 0,
+    height: page?.size.height || 0,
+  });
 
   return (
     <>
@@ -32,8 +37,8 @@ export default function PagePropertiesPanel() {
       <main className="conf-main">
         <PropertyElement label="Width" labelWidth={50}>
           <InputNumber
-            value={size?.width || 1024}
-            min={800}
+            value={size?.width}
+            min={100}
             step={1}
             max={4200}
             onUpdateValue={(value) => {
@@ -55,9 +60,9 @@ export default function PagePropertiesPanel() {
         <PropertyElement label="Height" labelWidth={50}>
           <InputNumber
             value={size?.height || 768}
-            min={400}
+            min={100}
             step={1}
-            max={3600}
+            max={4200}
             onUpdateValue={(value) => {
               const page = mm.getCurrentPage();
               if (isNil(page)) {

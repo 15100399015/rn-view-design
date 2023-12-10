@@ -15,34 +15,25 @@
  * limitations under the License.
  */
 
-import * as React from "react";
-import { MoveableManagerInterface } from "react-moveable";
+import mitt from "mitt";
+import { IObject } from "@daybrush/utils";
+import { EventBusType } from "@/DesignerView/types/eventbus";
+import ModelManager from "./ModelManager";
 
-export interface DimensionViewableProps {
-	dimensionViewable?: boolean;
+const ids: IObject<string> = {};
+
+function genId() {
+  for (;;) {
+    const id = `visual${Math.floor(Math.random() * 100000000)}`;
+    if (ids[id]) {
+      continue;
+    }
+    ids[id] = "ok";
+    return id;
+  }
 }
-export const DimensionViewable = {
-	name: "dimensionViewable",
-	props: {
-		dimensionViewable: Boolean,
-	},
-	events: {},
-	render(moveable: MoveableManagerInterface) {
-		const { zoom = 0 } = moveable.props;
-		const rect = moveable.getRect();
 
-		return (
-			<div
-				key="dimension-viewer"
-				className="solid-view-dimension"
-				style={{
-					left: `${rect.width / 2}px`,
-					top: `${rect.height}px`,
-					transform: `translate(-50%, ${20 * zoom}px) scale(${zoom})`,
-				}}
-			>
-				{Math.round(rect.offsetWidth)} x {Math.round(rect.offsetHeight)}
-			</div>
-		);
-	},
-} as const;
+const eventbus = mitt<EventBusType>();
+const mm = new ModelManager();
+
+export { eventbus, mm, genId };

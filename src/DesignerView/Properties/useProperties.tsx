@@ -18,7 +18,7 @@
 import React, { useEffect, useState } from "react";
 import { useUpdate } from "react-use";
 import { useMemoizedFn } from "ahooks";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerView/utils";
 import { isNil } from "lodash-es";
 
 function useProperties() {

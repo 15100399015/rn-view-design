@@ -1,4 +1,4 @@
-import { SolidModelDataType } from "@/types/solid";
+import { SolidModelDataType, SolidPageDataType } from "@/DesignerScene/types";
 
 export const modelData: SolidModelDataType = {
   id: "1",
@@ -15,7 +15,7 @@ export const modelData: SolidModelDataType = {
         {
           id: "2",
           parentId: "1",
-          title: "页1",
+          title: "测试页面",
           views: [],
           size: {
             width: 720,
@@ -30,30 +30,29 @@ export const modelData: SolidModelDataType = {
   style: {},
 };
 
-export const pageData = {
-  projectId: "1",
-  page: {
-    name: null,
-    id: 2,
-  },
+export const pageData: SolidPageDataType = {
+  id: "2",
+  parentId: "1",
+  title: "测试页面",
   size: {
     width: 720,
     height: 1280,
   },
   views: [
     {
-      id: 5,
+      id: "5",
       title: "红包",
       position: {
-        top: "0", 
-        left: "0",
+        top: 0,
+        left: 0,
       },
       size: {
-        width: "160",
-        height: "150",
+        width: 160,
+        height: 150,
       },
       type: "baseView",
       options: null,
+      frame: {},
     },
   ],
 };

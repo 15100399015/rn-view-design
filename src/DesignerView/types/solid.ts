@@ -29,7 +29,7 @@ interface SolidComponentSizeDataType {
   height: number;
 }
 
-export type SolidViewType = "view" | "textView" | "imageView";
+export type SolidViewType = "baseView" | "textView" | "imageView";
 
 export interface SolidModelDataType {
   id: string;
@@ -40,46 +40,22 @@ export interface SolidModelDataType {
   size: SolidComponentSizeDataType;
   frame: SolidComponentFrameDataType;
   style: React.CSSProperties;
-  scenas: SolidScenaDataType[];
-}
-
-export interface SolidScenaDataType {
-  id: string;
-  parentId: string;
-  title: string;
-  pages?: SolidPageDataType[];
-  size?: SolidComponentSizeDataType;
-
-  // --- for designer
-  selected?: boolean;
-}
-
-export interface SolidPageDataType {
-  id: string;
-  parentId: string;
-  title: string;
-  frame?: SolidComponentFrameDataType;
-  style?: React.CSSProperties;
-  views: SolidViewDataType[];
-  size: SolidComponentSizeDataType;
-
-  // --- for designer
-  selected?: boolean;
+  pageInfo: any;
+  sceneInfo: any;
+  view: SolidViewDataType;
 }
 
 export interface SolidViewDataType {
-  id: string;
-  title: string;
-  type: SolidViewType;
-  position: {
-    top: number;
-    left: number;
-  };
-  size: SolidComponentSizeDataType;
-  options?: any;
-  events?: SolidViewEventDataType[];
-  style?: React.CSSProperties;
-  frame: SolidComponentFrameDataType;
+  meta: {
+    id: string,
+    title: string,
+  },
+  isDocument?: boolean;
+  elementType: number;
+  name?: string;
+  attributes?: Record<string, any>;
+  bind?: Record<string, any>;
+  event?: Record<string, any>;
+  childNodes?: SolidViewDataType[];
+  value?: string;
 }
-
-interface SolidViewEventDataType {}

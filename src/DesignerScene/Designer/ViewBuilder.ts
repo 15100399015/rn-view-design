@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { SolidViewType } from "@/types/solid";
+import { SolidViewType } from "@/DesignerScene/types/solid";
 
 export interface ViewCategory {
   key: string;

@@ -19,7 +19,7 @@ import React, { useEffect } from "react";
 import { useUpdate } from "react-use";
 import { useMemoizedFn } from "ahooks";
 import { LeftRightExpander, PropertyElement, InputText } from "@/components";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerScene/utils";
 import { isNil } from "lodash-es";
 
 export default function StyleProperties() {

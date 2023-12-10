@@ -16,97 +16,56 @@
  */
 
 import React from "react";
-import { isNil } from "lodash-es";
-import { mm } from "@/utils";
-import { SolidViewDataType } from "@/types";
 import useOutline from "./useOutline";
 import "./outline.less";
 
 function Outline() {
-	const { selectView, getViewState } = useOutline();
+  const { getViewState, renderViews } = useOutline();
 
-	function renderViews() {
-		const currentPage = mm.getCurrentPage();
-		let views: SolidViewDataType[] = [];
-		if (!isNil(currentPage)) {
-			views = currentPage.views;
-		}
-		const nodes: React.ReactNode[] = [];
-		views.forEach((view) => {
-			const vs = getViewState(view.id);
-			let selected = false;
-			if (!isNil(vs)) {
-				selected = vs.selected;
-			}
-			nodes.push(
-				<li
-					className={`chartview ${selected ? "selected" : ""}`}
-					key={`key_${view.id}`}
-					onClick={() => {
-						selectView(view.id);
-					}}
-				>
-					<span className="eblock" />
-					<i
-						className="bi-font bi-chart-column"
-						style={{
-							position: "relative",
-							fontSize: "16px",
-							color: "#3dd8ff",
-						}}
-					/>
-					<span className="text">{view.title}</span>
-				</li>,
-			);
-		});
-		return nodes;
-	}
-
-	return (
-		<div className="aside-outline">
-			<div className="heading">
-				<span
-					style={{
-						position: "relative",
-						height: "38px",
-						width: "100%",
-						fontSize: "14px",
-						// color: "#fff",
-						lineHeight: "38px",
-					}}
-				>
-					View List
-				</span>
-			</div>
-			<div className="components">
-				<div
-					style={{
-						position: "relative",
-						width: "100%",
-						height: "100%",
-						overflow: "hidden",
-					}}
-				>
-					<div
-						style={{
-							position: "absolute",
-							top: 0,
-							left: 0,
-							bottom: 0,
-							right: 0,
-							overflow: "scroll",
-							marginRight: "-4px",
-							marginBottom: "-4px",
-						}}
-					>
-						<ul className="charts">
-							<div className="charts-container">{renderViews()}</div>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="aside-outline">
+      <div className="heading">
+        <span
+          style={{
+            position: "relative",
+            height: "38px",
+            width: "100%",
+            fontSize: "14px",
+            lineHeight: "38px",
+          }}
+        >
+          View List
+        </span>
+      </div>
+      <div className="components">
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              overflow: "scroll",
+              marginRight: "-4px",
+              marginBottom: "-4px",
+            }}
+          >
+            <ul className="charts">
+              <div className="charts-container">{renderViews()}</div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Outline;

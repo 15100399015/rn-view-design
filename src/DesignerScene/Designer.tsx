@@ -17,7 +17,7 @@
 
 import React from "react";
 import { useMemoizedFn } from "ahooks";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerScene/utils";
 import Header from "./Header/Header";
 import Aside from "./Aside/Aside";
 import Scena from "./Scena/Scena";
@@ -36,7 +36,7 @@ function Dashboard() {
   }, [handleLoad]);
 
   return (
-    <div id="dashboard">
+    <div id="dashboard" className="dashboard-scene">
       {/* 头部 */}
       <Header />
       {/* 左侧边栏 */}

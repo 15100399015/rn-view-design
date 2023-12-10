@@ -2,7 +2,7 @@ import React from "react";
 import { ImageBackground } from "react-native";
 
 interface IProps {
-  src: string;
+  src?: string;
 }
 
 export function CustomImageBackground(props: IProps) {

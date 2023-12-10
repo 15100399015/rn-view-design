@@ -15,49 +15,56 @@
  * limitations under the License.
  */
 
-import React, { useEffect } from "react";
-import { useUpdate } from "react-use";
+import React, { useEffect, useState } from "react";
+import { useStartTyping, useUpdate } from "react-use";
 import { useMemoizedFn } from "ahooks";
 import { LeftRightExpander, PropertyElement, InputText } from "@/components";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerView/utils";
 import { isNil } from "lodash-es";
 
 export default function StyleProperties() {
-	const forceUpdate = useUpdate();
+  const forceUpdate = useUpdate();
+  const [currentViewTiem, setCurrentViewItem] = useState();
 
-	const handleSelectViewEvent = useMemoizedFn(() => {
-		forceUpdate();
-	});
+  const handleSelectViewEvent = useMemoizedFn((e) => {
+	console.log(e);
+	
+    setCurrentViewItem(e);
+    forceUpdate();
+  });
 
-	useEffect(() => {
-		eventbus.on("onSelectViewInViewList", handleSelectViewEvent);
-		eventbus.on("onSelectViewInViewport", handleSelectViewEvent);
+  useEffect(() => {
+    eventbus.on("onSelectViewInViewList", handleSelectViewEvent);
+    eventbus.on("onSelectViewInViewport", handleSelectViewEvent);
 
-		return () => {
-			eventbus.off("onSelectViewInViewList", handleSelectViewEvent);
-			eventbus.off("onSelectViewInViewport", handleSelectViewEvent);
-		};
-	}, [handleSelectViewEvent]);
+    return () => {
+      eventbus.off("onSelectViewInViewList", handleSelectViewEvent);
+      eventbus.off("onSelectViewInViewport", handleSelectViewEvent);
+    };
+  }, [handleSelectViewEvent]);
 
-	return (
-		<LeftRightExpander expanded showCheckbox={false} title="View">
-			<PropertyElement label="Title" labelWidth={50}>
-				<InputText
-					value={mm.getCurrentView()?.title || ""}
-					onChange={(e) => {
-						const currentView = mm.getCurrentView();
-						if (isNil(currentView)) {
-							return;
-						}
-						currentView.title = e || "";
-						eventbus.emit("onUpdateViewPropertyValue", {
-							id: currentView.id,
-							property: "title",
-							value: e || "",
-						});
-					}}
-				/>
-			</PropertyElement>
-		</LeftRightExpander>
-	);
+  return (
+    <LeftRightExpander expanded showCheckbox={false} title="View">
+      <PropertyElement label="Title" labelWidth={50}>
+        <InputText
+          value={mm.getCurrentView()?.title || ""}
+          onChange={(e) => {
+            const currentView = mm.getCurrentView();
+            if (isNil(currentView)) {
+              return;
+            }
+            currentView.title = e || "";
+            eventbus.emit("onUpdateViewPropertyValue", {
+              id: currentView.id,
+              property: "title",
+              value: e || "",
+            });
+          }}
+        />
+      </PropertyElement>
+      <PropertyElement label="View" labelWidth={50}>
+        <p>{JSON.stringify(currentViewTiem || {}, null, 4)}</p>
+      </PropertyElement>
+    </LeftRightExpander>
+  );
 }

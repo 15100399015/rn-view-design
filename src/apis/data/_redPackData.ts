@@ -1,14 +1,25 @@
-export const viewTreeData = {
+import { SolidViewDataType } from "@/DesignerView/types";
+
+export const viewTreeData:SolidViewDataType = {
   childNodes: [
     {
       childNodes: [
         {
+         
           childNodes: [],
+          meta: {
+            id: "0-0-0",
+            title: "红色北京",
+          },
           elementType: 2,
           value: "\n    ",
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-1",
+            title: "红色北京",
+          },
           elementType: 1,
           name: "view",
           attributes: {
@@ -24,6 +35,10 @@ export const viewTreeData = {
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-2",
+            title: "红色北京",
+          },
           elementType: 2,
           value: "\n\n    ",
         },
@@ -31,6 +46,10 @@ export const viewTreeData = {
           childNodes: [
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-0",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n        ",
             },
@@ -38,10 +57,18 @@ export const viewTreeData = {
               childNodes: [
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-1-0",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            恭喜获得现金奖励1\n        ",
                 },
               ],
+              meta: {
+                id: "0-0-3-1",
+                title: "红色北京",
+              },
               elementType: 1,
               name: "text",
               attributes: {
@@ -56,11 +83,19 @@ export const viewTreeData = {
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-2",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n        ",
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-3",
+                title: "红色北京",
+              },
               elementType: 1,
               name: "image",
               attributes: {
@@ -77,6 +112,10 @@ export const viewTreeData = {
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-4",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n\n        ",
             },
@@ -84,6 +123,10 @@ export const viewTreeData = {
               childNodes: [
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-5-0",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            ",
                 },
@@ -91,10 +134,18 @@ export const viewTreeData = {
                   childNodes: [
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-3-5-1-0",
+                        title: "红色北京",
+                      },
                       elementType: 2,
                       value: "40",
                     },
                   ],
+                  meta: {
+                    id: "0-0-3-5-1",
+                    title: "红色北京",
+                  },
                   elementType: 1,
                   name: "text",
                   attributes: {
@@ -109,6 +160,10 @@ export const viewTreeData = {
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-5-2",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            ",
                 },
@@ -116,10 +171,18 @@ export const viewTreeData = {
                   childNodes: [
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-3-5-3-0",
+                        title: "红色北京",
+                      },
                       elementType: 2,
                       value: "元",
                     },
                   ],
+                  meta: {
+                    id: "0-0-3-5-3",
+                    title: "红色北京",
+                  },
                   elementType: 1,
                   name: "text",
                   attributes: {
@@ -135,10 +198,18 @@ export const viewTreeData = {
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-5-4",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n        ",
                 },
               ],
+              meta: {
+                id: "0-0-3-5",
+                title: "红色北京",
+              },
               elementType: 1,
               name: "view",
               attributes: {
@@ -152,6 +223,10 @@ export const viewTreeData = {
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-6",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n        ",
             },
@@ -159,11 +234,19 @@ export const viewTreeData = {
               childNodes: [
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-7-0",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            ",
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-7-1",
+                    title: "红色北京",
+                  },
                   elementType: 1,
                   name: "image",
                   attributes: {
@@ -179,6 +262,10 @@ export const viewTreeData = {
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-7-2",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            ",
                 },
@@ -186,10 +273,18 @@ export const viewTreeData = {
                   childNodes: [
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-3-7-3-0",
+                        title: "红色北京",
+                      },
                       elementType: 2,
                       value: "微信提现",
                     },
                   ],
+                  meta: {
+                    id: "0-0-3-7-3",
+                    title: "红色北京",
+                  },
                   elementType: 1,
                   name: "text",
                   attributes: {
@@ -204,10 +299,18 @@ export const viewTreeData = {
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-3-7-4",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n        ",
                 },
               ],
+              meta: {
+                id: "0-0-3-7",
+                title: "红色北京",
+              },
               elementType: 1,
               name: "view",
               attributes: {
@@ -221,10 +324,18 @@ export const viewTreeData = {
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-3-8",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n    ",
             },
           ],
+          meta: {
+            id: "0-0-3",
+            title: "红色北京",
+          },
           elementType: 1,
           name: "view",
           attributes: {
@@ -244,11 +355,19 @@ export const viewTreeData = {
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-4",
+            title: "红色北京",
+          },
           elementType: 2,
           value: "\n\n    ",
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-5",
+            title: "红色北京",
+          },
           elementType: 1,
           name: "image",
           attributes: {
@@ -269,6 +388,10 @@ export const viewTreeData = {
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-6",
+            title: "红色北京",
+          },
           elementType: 2,
           value: "\n\n    ",
         },
@@ -276,6 +399,10 @@ export const viewTreeData = {
           childNodes: [
             {
               childNodes: [],
+              meta: {
+                id: "0-0-7-0",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n        ",
             },
@@ -283,6 +410,10 @@ export const viewTreeData = {
               childNodes: [
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-7-1-0",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n            ",
                 },
@@ -290,20 +421,36 @@ export const viewTreeData = {
                   childNodes: [
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-7-1-1-0",
+                        title: "红色北京",
+                      },
                       elementType: 2,
                       value: "\n                你好 ",
                     },
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-7-1-1-1",
+                        title: "红色北京",
+                      },
                       elementType: 3,
                       value: "name",
                     },
                     {
                       childNodes: [],
+                      meta: {
+                        id: "0-0-7-1-1-2",
+                        title: "红色北京",
+                      },
                       elementType: 2,
                       value: "\n            ",
                     },
                   ],
+                  meta: {
+                    id: "0-0-7-1-1",
+                    title: "红色北京",
+                  },
                   elementType: 1,
                   name: "text",
                   attributes: {
@@ -318,10 +465,18 @@ export const viewTreeData = {
                 },
                 {
                   childNodes: [],
+                  meta: {
+                    id: "0-0-7-1-2",
+                    title: "红色北京",
+                  },
                   elementType: 2,
                   value: "\n        ",
                 },
               ],
+              meta: {
+                id: "0-0-7-1",
+                title: "红色北京",
+              },
               elementType: 1,
               name: "view",
               attributes: {
@@ -339,10 +494,18 @@ export const viewTreeData = {
             },
             {
               childNodes: [],
+              meta: {
+                id: "0-0-7-2",
+                title: "红色北京",
+              },
               elementType: 2,
               value: "\n    ",
             },
           ],
+          meta: {
+            id: "0-0-7",
+            title: "红色北京",
+          },
           elementType: 1,
           name: "touchableView",
           attributes: {
@@ -363,10 +526,18 @@ export const viewTreeData = {
         },
         {
           childNodes: [],
+          meta: {
+            id: "0-0-8",
+            title: "红色北京",
+          },
           elementType: 2,
           value: "\n\n",
         },
       ],
+      meta: {
+        id: "0-0",
+        title: "红色北京",
+      },
       elementType: 1,
       name: "view",
       attributes: {
@@ -385,6 +556,10 @@ export const viewTreeData = {
       event: {},
     },
   ],
+  meta: {
+    id: "0",
+    title: "Document",
+  },
   elementType: 0,
   isDocument: true,
 };

@@ -18,12 +18,12 @@
 import React, { useEffect, useState } from "react";
 import { useUpdate } from "react-use";
 import { useMemoizedFn } from "ahooks";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerScene/utils";
 import {
 	OnSelectViewEventData,
 	OnDrawCompleteEventData,
 	OnRemoveViewCompleteEventData,
-} from "@/types";
+} from "@/DesignerScene/types";
 
 type ViewStateDataType = {
 	selected: boolean;

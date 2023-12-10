@@ -21,9 +21,9 @@ import {
 	SolidScenaDataType,
 	SolidPageDataType,
 	SolidViewDataType,
-} from "@/types/solid";
-import { eventbus } from "@/utils";
-import { OnSelectViewEventData } from "@/types/eventbus";
+} from "@/DesignerScene/types/solid";
+import { eventbus } from "@/DesignerScene/utils";
+import { OnSelectViewEventData } from "@/DesignerScene/types/eventbus";
 
 class ModelManager {
 	private model?: SolidModelDataType;

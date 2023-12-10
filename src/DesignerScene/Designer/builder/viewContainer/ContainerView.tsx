@@ -17,7 +17,7 @@
 import React, { useEffect, useState } from "react";
 import SolidView, { SolidViewProps, SolidViewState } from "../../BaseView";
 import { generatorElementTreeByXmlAst } from "@/utils/renderRnView";
-import { viewTreeData } from "@/apis/data/viewData";
+import { viewTreeData } from "@/apis/data/_redPackData";
 import { useEffectOnce } from "react-use";
 
 export default class BaseViewSolidView<

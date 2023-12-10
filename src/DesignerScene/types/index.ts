@@ -15,29 +15,5 @@
  * limitations under the License.
  */
 
-import SolidViewBuilder from "./ViewBuilder";
-import BaseViewSolidViewBuilder from "./builder/viewContainer/ContainerViewBuilder";
-
-export default class ViewFactory {
-  private pool: Map<string, SolidViewBuilder> = new Map<
-    string,
-    SolidViewBuilder
-  >();
-
-  public constructor() {
-    this.init();
-  }
-
-  public init(): void {
-    this.register(new BaseViewSolidViewBuilder());
-  }
-
-  public register(builder: SolidViewBuilder): void {
-    this.pool.set(builder.getType(), builder);
-  }
-
-  public getBuilder(type: string): SolidViewBuilder | undefined {
-    const builder = this.pool.get(type);
-    if (builder) return builder;
-  }
-}
+export * from "./solid";
+export * from "./eventbus";

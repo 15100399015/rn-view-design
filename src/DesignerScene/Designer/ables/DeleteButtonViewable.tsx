@@ -16,7 +16,7 @@
  */
 
 import { MoveableManagerInterface, Renderer } from "react-moveable";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerScene/utils";
 import { SolidEditorContext } from "../DesignerContext";
 import SolidEditor from "../Designer";
 import { SOLIDUI_ELEMENT_ID } from "../utils/const";

@@ -28,7 +28,7 @@ import {
 	ButtonGroupRadio,
 	Select,
 } from "@/components";
-import { eventbus, mm } from "@/utils";
+import { eventbus, mm } from "@/DesignerScene/utils";
 
 function getPropertyValue(propertyKey: string) {
 	const view = mm.getCurrentView();

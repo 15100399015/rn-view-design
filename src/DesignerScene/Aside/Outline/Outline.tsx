@@ -17,8 +17,8 @@
 
 import React from "react";
 import { isNil } from "lodash-es";
-import { mm } from "@/utils";
-import { SolidViewDataType } from "@/types";
+import { mm } from "@/DesignerScene/utils";
+import { SolidViewDataType } from "@/DesignerScene/types";
 import useOutline from "./useOutline";
 import "./outline.less";
 

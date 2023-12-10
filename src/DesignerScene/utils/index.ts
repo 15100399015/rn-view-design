@@ -15,34 +15,25 @@
  * limitations under the License.
  */
 
-import { createContext } from "react";
-import SolidEditor from "./SolidEditor";
-import { SOLID_EDITOR_PROPERTIES } from "./utils/const";
+import mitt from "mitt";
+import { IObject } from "@daybrush/utils";
+import { EventBusType } from "@/DesignerScene/types/eventbus";
+import ModelManager from "./ModelManager";
 
-export const SolidEditorContext = createContext<SolidEditor | null>(null);
+const ids: IObject<string> = {};
 
-function connectContext(
-	context: React.Context<any>,
-	properties: readonly string[],
-) {
-	return function connect(Component: any) {
-		const { prototype } = Component;
-
-		Component.contextType = context;
-		properties.forEach((name) => {
-			Object.defineProperty(prototype, name, {
-				get() {
-					return this.context[name];
-				},
-				set() {
-					this.context[name](name);
-				},
-			});
-		});
-	};
+function genId() {
+  for (;;) {
+    const id = `visual${Math.floor(Math.random() * 100000000)}`;
+    if (ids[id]) {
+      continue;
+    }
+    ids[id] = "ok";
+    return id;
+  }
 }
 
-export const connectEditorContext = connectContext(
-	SolidEditorContext,
-	SOLID_EDITOR_PROPERTIES,
-);
+const eventbus = mitt<EventBusType>();
+const mm = new ModelManager();
+
+export { eventbus, mm, genId };

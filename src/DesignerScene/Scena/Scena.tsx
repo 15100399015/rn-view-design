@@ -23,8 +23,8 @@ import {
   OnSelectPageEventData,
   OnZoomEventData,
   onPageSizeValueChangeEventData,
-} from "@/types/eventbus";
-import { eventbus } from "@/utils";
+} from "@/DesignerScene/types/eventbus";
+import { eventbus } from "@/DesignerScene/utils";
 
 function Scena() {
   const [width, setWidth] = useState(720);

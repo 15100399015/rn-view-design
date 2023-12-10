@@ -18,7 +18,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import { mm } from "@/utils";
+import { mm } from "@/DesignerScene/utils";
 
 export default function DataPropertiesPanel() {
   const view = mm.getCurrentView();
