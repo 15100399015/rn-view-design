@@ -15,29 +15,29 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+import SolidViewBuilder from "./ViewBuilder";
+import BaseViewSolidViewBuilder from "./builder/viewContainer/ContainerViewBuilder";
 
-const ids: IObject<string> = {};
+export default class ViewFactory {
+  private pool: Map<string, SolidViewBuilder> = new Map<
+    string,
+    SolidViewBuilder
+  >();
 
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
+  public constructor() {
+    this.init();
+  }
+
+  public init(): void {
+    this.register(new BaseViewSolidViewBuilder());
+  }
+
+  public register(builder: SolidViewBuilder): void {
+    this.pool.set(builder.getType(), builder);
+  }
+
+  public getBuilder(type: string): SolidViewBuilder | undefined {
+    const builder = this.pool.get(type);
+    if (builder) return builder;
   }
 }
-
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
-
-export { designerEventbus, eventbus, mm, viewManager, genId };

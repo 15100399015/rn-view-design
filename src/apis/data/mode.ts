@@ -43,7 +43,7 @@ export const pageData = {
   views: [
     {
       id: 5,
-      title: "baseView",
+      title: "红包",
       position: {
         top: "0", 
         left: "0",
@@ -53,20 +53,6 @@ export const pageData = {
         height: "150",
       },
       type: "baseView",
-      options: null,
-    },
-    {
-      id: 6,
-      title: "textView",
-      position: {
-        top: "550",
-        left: "0",
-      },
-      size: {
-        width: "160",
-        height: "150",
-      },
-      type: "textView",
       options: null,
     },
   ],

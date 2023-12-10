@@ -15,29 +15,19 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+import React from "react";
+import ViewPropertiesPanel from "./ViewPropertiesPanel/ViewPropertiesPanel";
 
-const ids: IObject<string> = {};
+import "./configurations.less";
 
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
-  }
+function Properties() {
+  return (
+    <section id="section-properties" className="aside-east">
+      <div className="aside-east__container">
+        <ViewPropertiesPanel />
+      </div>
+    </section>
+  );
 }
 
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
-
-export { designerEventbus, eventbus, mm, viewManager, genId };
+export default Properties;

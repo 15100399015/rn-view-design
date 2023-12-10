@@ -15,29 +15,18 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+export default class Memory {
+	public map = new Map<any, any>();
 
-const ids: IObject<string> = {};
+	public get(key: any) {
+		return this.map.get(key);
+	}
 
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
-  }
+	public set(key: any, value: any) {
+		return this.map.set(key, value);
+	}
+
+	public clear() {
+		this.map.clear();
+	}
 }
-
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
-
-export { designerEventbus, eventbus, mm, viewManager, genId };

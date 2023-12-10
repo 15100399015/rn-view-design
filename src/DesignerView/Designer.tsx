@@ -15,29 +15,35 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+import React from "react";
+import { useMemoizedFn } from "ahooks";
+import { eventbus, mm } from "@/utils";
+import Aside from "./Aside/Aside";
+import Scena from "./Scena/Scena";
+import Properties from "./Properties/Properties";
+import { modelData } from "@/apis/data/mode";
+import "@/assets/styles/designer.less";
 
-const ids: IObject<string> = {};
+function Dashboard() {
+  const handleLoad = useMemoizedFn(async () => {
+    mm.attach(modelData);
+    eventbus.emit("onModelLoad", { model: modelData });
+  });
 
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
-  }
+  React.useEffect(() => {
+    handleLoad();
+  }, [handleLoad]);
+
+  return (
+    <div id="dashboard">
+      {/* 左侧边栏 */}
+      <Aside />
+      {/* 场景视图 */}
+      <Scena />
+      {/* 右侧面板 */}
+      <Properties />
+    </div>
+  );
 }
 
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
-
-export { designerEventbus, eventbus, mm, viewManager, genId };
+export default Dashboard;

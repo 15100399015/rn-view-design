@@ -15,29 +15,31 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+import { SolidViewType } from "@/types/solid";
 
-const ids: IObject<string> = {};
-
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
-  }
+export interface ViewCategory {
+  key: string;
+  title: string;
 }
 
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
+export default abstract class ViewBuilder {
+  abstract createModel(options?: any): any;
 
-export { designerEventbus, eventbus, mm, viewManager, genId };
+  abstract getFrame(): any;
+
+  abstract getComponentType(): any;
+
+  abstract getId(): string;
+
+  abstract getCategory(): ViewCategory;
+
+  abstract getTitle(): string;
+
+  abstract getType(): SolidViewType;
+
+  abstract getIcon(): string;
+
+  abstract getImage(): string;
+
+  abstract getDescription(): string;
+}

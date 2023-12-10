@@ -15,29 +15,23 @@
  * limitations under the License.
  */
 
-import mitt from "mitt";
-import { IObject } from "@daybrush/utils";
-import { EventBusType } from "@/types/eventbus";
-import { DesignerEventBusType } from "@/types/designerEventbus";
-import ModelManager from "./ModelManager";
-import ViewManager from "./ViewManager";
+import React from "react";
+import { Row, Col } from "antd";
 
-const ids: IObject<string> = {};
+import { mm } from "@/utils";
 
-function genId() {
-  for (;;) {
-    const id = `visual${Math.floor(Math.random() * 100000000)}`;
-    if (ids[id]) {
-      continue;
-    }
-    ids[id] = "ok";
-    return id;
-  }
+export default function DataPropertiesPanel() {
+  const view = mm.getCurrentView();
+
+  return (
+    <div className="data-conf">
+      <div className="ds-conf">
+        <div className="ds-select-area">
+          <Row gutter={10}>
+            <Col span={24}>数据面板</Col>
+          </Row>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-const eventbus = mitt<EventBusType>();
-const designerEventbus = mitt<EventBusType>();
-const mm = new ModelManager();
-const viewManager = new ViewManager();
-
-export { designerEventbus, eventbus, mm, viewManager, genId };
