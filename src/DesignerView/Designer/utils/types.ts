@@ -22,54 +22,43 @@ import SolidViewport from "../DesignerViewport";
 import MoveableManager from "./MoveableManager";
 import Memory from "./Memory";
 import MoveableData from "./MoveableData";
+import { JSXElementConstructor, ReactElement } from "react";
 
 export interface BaseSolidViewProps {
-	visualElementId?: string;
-	visualAttrs?: IObject<any>;
+  visualElementId?: string;
+  visualAttrs?: IObject<any>;
 }
 
 export type SolidViewComponent =
-	React.JSXElementConstructor<BaseSolidViewProps> & {
-		visualComponentId: string;
-	};
+  React.JSXElementConstructor<BaseSolidViewProps> & {
+    visualComponentId: string;
+  };
 
-export type SolidViewJSXElement =
-	| React.ReactElement<any, string>
-	| VisualFunctionJSXElement;
-export type VisualFunctionJSXElement = React.ReactElement<
-	any,
-	SolidViewComponent
+export type SolidViewJSXElement = React.ReactElement<any, string>;
+
+export type SolidViewJSXType = ReactElement<
+  any,
+  string | JSXElementConstructor<any>
 >;
-export type SolidViewJSXType =
-	| SolidViewJSXElement
-	| string
-	| SolidViewComponent;
 
 export interface ElementInfo {
-	id?: string;
-	name: string;
-	jsx: SolidViewJSXType;
-	scopeId?: string;
-	children?: ElementInfo[];
-	attrs?: IObject<any>;
-	componentId?: string;
-	jsxId?: string;
-	el?: HTMLElement | SVGElement;
-	index?: number;
-}
-
-export interface AddedInfo {
-	added: ElementInfo[];
-}
-export interface RemovedInfo {
-	removed: ElementInfo[];
+  id?: string;
+  name: string;
+  jsx: SolidViewJSXType;
+  scopeId?: string;
+  children?: ElementInfo[];
+  attrs?: IObject<any>;
+  componentId?: string;
+  jsxId?: string;
+  el?: HTMLElement | SVGElement;
+  index?: number;
 }
 
 export interface EditorInterface {
-	editor: SolidEditor;
-	memory: Memory;
-	moveableData: MoveableData;
-	moveableManager: React.RefObject<MoveableManager>;
-	getViewport: () => SolidViewport;
-	getSelecto: () => Selecto;
+  editor: SolidEditor;
+  memory: Memory;
+  moveableData: MoveableData;
+  moveableManager: React.RefObject<MoveableManager>;
+  getViewport: () => SolidViewport;
+  getSelecto: () => Selecto;
 }

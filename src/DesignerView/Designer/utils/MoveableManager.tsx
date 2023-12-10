@@ -1,10 +1,7 @@
 import * as React from "react";
 import Moveable from "react-moveable";
-import { eventbus, mm } from "@/DesignerView/utils";
-import { getContentElement } from "./index";
 import { EditorInterface } from "./types";
 import { connectEditorContext } from "../DesignerContext";
-import { SOLIDUI_ELEMENT_ID } from "./const";
 import {
   DimensionViewable,
   DimensionViewableProps,
@@ -13,7 +10,6 @@ import {
   DelteButtonViewable,
   DelteButtonViewableProps,
 } from "../ables/DeleteButtonViewable";
-import { message } from "antd";
 
 interface MoveableManager extends EditorInterface {}
 
@@ -91,7 +87,6 @@ class MoveableManager extends React.PureComponent<{
         snapDistFormat={(v) => `${v}px`}
         // Roundable
         roundable={false}
-        // roundable={selectedTargets.length > 1 ? false : true}
         roundClickable={false}
         isDisplayShadowRoundControls
         minRoundControls={[1, 0]}
@@ -117,70 +112,17 @@ class MoveableManager extends React.PureComponent<{
         }}
         onRender={(e) => {
           e.datas.isRender = true;
-          // this.eventBus.requestTrigger("render");
         }}
-        onRenderEnd={() => {
-          // this.eventBus.requestTrigger("render");
-          // if (!e.datas.isRender) {
-          // 	return;
-          // }
-          // this.historyManager.addAction("render", {
-          // 	id: getId(e.target),
-          // 	prev: e.datas.prevData,
-          // 	next: moveableData.getFrame(e.target).get(),
-          // });
-        }}
+        onRenderEnd={() => {}}
         onRenderGroupStart={(e) => {
           e.datas.prevDatas = e.targets.map((target) =>
             moveableData.getFrame(target).get()
           );
         }}
-        onRenderGroup={() => {
-          // this.eventBus.requestTrigger("renderGroup", e);
-          // e.datas.isRender = true;
-        }}
-        onRenderGroupEnd={() => {
-          // this.eventBus.requestTrigger("renderGroup", e);
-          // if (!e.datas.isRender) {
-          // 	return;
-          // }
-          // const prevDatas = e.datas.prevDatas;
-          // const infos = e.targets.map((target, i) => {
-          // 	return {
-          // 		id: getId(target),
-          // 		prev: prevDatas[i],
-          // 		next: moveableData.getFrame(target).get(),
-          // 	};
-          // });
-          // this.historyManager.addAction("renders", {
-          // 	infos,
-          // });
-        }}
+        onRenderGroup={() => {}}
+        onRenderGroupEnd={() => {}}
       />
     );
-  }
-
-  public renderViewportMoveable() {
-    const { moveableData } = this;
-    const viewport = this.getViewport();
-    const target = viewport ? viewport.viewportRef.current! : null;
-
-    return (
-      <Moveable
-        ref={this.moveable}
-        rotatable
-        target={target}
-        origin={false}
-        onRotateStart={moveableData.onRotateStart}
-        onRotate={moveableData.onRotate}
-      />
-    );
-  }
-
-  public componentDidMount() {}
-
-  public updateRect() {
-    this.getMoveable().updateRect();
   }
 }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import InfiniteViewer from "react-infinite-viewer";
 import Guides from "@scena/react-guides";
 import Selecto from "react-selecto";
-import { IObject } from "@daybrush/utils";
 import { OnSelectViewEventData } from "@/DesignerScene/types/eventbus";
 import { eventbus, mm } from "@/DesignerView/utils";
 import SolidViewport from "./DesignerViewport";
@@ -13,7 +12,7 @@ import { SOLIDUI_ELEMENT_ID } from "./utils/const";
 import { prefix } from "./utils";
 
 import { SolidEditorContext } from "./DesignerContext";
-import { AddedInfo, ElementInfo, RemovedInfo } from "./utils/types";
+import { ElementInfo } from "./utils/types";
 import "./style/index.less";
 import { OnModelLoadEventData } from "@/types";
 import { generatorElementTreeByXmlAst } from "@/utils/renderRnView";
@@ -46,7 +45,6 @@ export default class SolidEditor extends React.PureComponent<
       selectedTargets: [],
       horizontalGuides: [],
       verticalGuides: [],
-      // 缩放
       zoom: this.props.zoom ? this.props.zoom : 1,
       selectedMenu: "MoveTool",
     };
@@ -95,13 +93,11 @@ export default class SolidEditor extends React.PureComponent<
         const JsxComponent = generatorElementTreeByXmlAst(
           model.view as unknown as any
         );
-        this.appendJSXsOnly([
-          {
-            id: "view.meta.id",
-            jsx: <JsxComponent />,
-            name: "根标签",
-          },
-        ]);
+        this.setViewPortRootView({
+          id: "view.meta.id",
+          jsx: <JsxComponent />,
+          name: "根标签",
+        });
       }
     });
   };
@@ -125,109 +121,15 @@ export default class SolidEditor extends React.PureComponent<
     }
   }
 
-  public appendJSXsOnly(
-    jsxs: ElementInfo[],
-    isRestore?: boolean
-  ): Promise<AddedInfo> {
-    const viewport = this.getViewport();
-    const indexesList = viewport.getSortedIndexesList(
-      this.getSelectedTargets()
-    );
-    const indexesListLength = indexesList.length;
-    let appendIndex = -1;
-    let scopeId = "";
-
-    if (!isRestore && indexesListLength) {
-      const indexes = indexesList[indexesListLength - 1];
-
-      const info = viewport.getInfoByIndexes(indexes);
-
-      scopeId = info.scopeId!;
-      appendIndex = indexes[indexes.length - 1] + 1;
-    }
-
-    return this.getViewport().appendJSXs(jsxs, appendIndex, scopeId);
+  public setViewPortRootView(info: ElementInfo): Promise<any> {
+    return this.getViewport().setRootView(info);
   }
 
-  public appendJSX(info: ElementInfo) {
-    return this.appendJSXs([info]).then((targets) => targets[0]);
-  }
-
-  public appendJSXs(
-    jsxs: ElementInfo[],
-    isRestore?: boolean
-  ): Promise<Array<HTMLElement | SVGElement>> {
-    const viewport = this.getViewport();
-    const indexesList = viewport.getSortedIndexesList(
-      this.getSelectedTargets() || []
-    );
-    const indexesListLength = indexesList.length;
-    let appendIndex = -1;
-    let scopeId = "";
-
-    if (!isRestore && indexesListLength) {
-      const indexes = indexesList[indexesListLength - 1];
-
-      const info = viewport.getInfoByIndexes(indexes);
-
-      scopeId = info.scopeId!;
-      appendIndex = indexes[indexes.length - 1] + 1;
-    }
-
-    return this.getViewport()
-      .appendJSXs(jsxs, appendIndex, scopeId)
-      .then(({ added }) => this.appendComplete(added));
-  }
-
-  public removeAll() {
-    const infos = this.getViewport().getViewportInfos();
-    const ids: string[] = [];
-    if (infos) {
-      infos.forEach((info) => {
-        if (info.id) {
-          ids.push(info.id);
-        }
-      });
-    }
-    this.getViewport().getElements(ids);
-    this.removeElements(this.getViewport().getElements(ids));
-  }
-
-  public clear(): Promise<RemovedInfo> {
-    const root = this.getViewport().getInfo("viewport");
-    const targets: Array<HTMLElement | SVGElement> = [];
-    if (root !== null && undefined !== root && root.children) {
-      root.children.forEach((child) => {
-        if (child.el) {
-          targets.push(child.el);
-        }
-      });
-    }
-    return this.getViewport()
-      .removeTargets(targets)
-      .then(
-        (removed) =>
-          new Promise((resolve) => {
-            this.setState(
-              {
-                selectedTargets: [],
-              },
-              () => {
-                resolve(removed);
-              }
-            );
-          })
-      );
-  }
-
-  public removeByIds(ids: string[]) {
-    return this.removeElements(this.getViewport().getElements(ids));
-  }
-
-  private appendComplete(infos: ElementInfo[]) {
-    const targets1 = infos.map((info) => info.el!);
-    this.setSelectedTargets(targets1);
-    return targets1;
+  public clear() {
+    return new Promise((resolve) => {
+      this.getViewport().clear();
+      resolve(void 0);
+    });
   }
 
   public promiseState(state: SolidEditorState) {
@@ -259,39 +161,6 @@ export default class SolidEditor extends React.PureComponent<
   }
 
   public getSelectedTargets = () => this.state.selectedTargets;
-
-  public removeElements(targets: Array<HTMLElement | SVGElement>) {
-    const viewport = this.getViewport();
-    return viewport.removeTargets(targets).then(() => {
-      this.setSelectedTargets([]);
-      return targets;
-    });
-  }
-
-  public removeFrames(targets: Array<HTMLElement | SVGElement>) {
-    const frameMap: IObject<{
-      frame: IObject<any>;
-      frameOrder: IObject<any>;
-    }> = {};
-    const { moveableData } = this;
-    const viewport = this.getViewport();
-
-    targets.forEach(function removeFrame(target) {
-      const info = viewport.getInfoByElement(target)!;
-      const frame = moveableData.getFrame(target);
-      frameMap[info.id!] = {
-        frame: frame.get(),
-        frameOrder: frame.getOrderObject(),
-      };
-      moveableData.removeFrame(target);
-
-      info.children!.forEach((childInfo) => {
-        removeFrame(childInfo.el!);
-      });
-    });
-
-    return frameMap;
-  }
 
   public render() {
     return (
